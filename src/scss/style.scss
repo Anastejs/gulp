@@ -1,0 +1,18 @@
+body{
+  background-color: #5a8a2f;
+  span{
+    color: brown;
+  }
+  background: url("@img/cover.jpg") 0 0 no-repeat;
+}
+
+@media (max-width: 768px){
+  span{
+    font-size: 20px;
+  }
+}
+@media (max-width: 768px){
+  body{
+    background-color: #0e99ad;
+  }
+}
