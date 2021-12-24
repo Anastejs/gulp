@@ -9,6 +9,8 @@ const srcFolder = `./src`;
 export const path = {
     // объект путей к папке с результатом
     build: {
+        images: `${buildFolder}/img/`,
+        js: `${buildFolder}/js/`,
         css: `${buildFolder}/css/`,
         html: `${buildFolder}/`,
         // в - папку с результатом
@@ -16,6 +18,9 @@ export const path = {
     },
     // объект путей к исходным файлам
     src: {
+        svg: `${srcFolder}/img/**/*.svg`,
+        images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`,
+        js: `${srcFolder}/js/app.js`,
         scss: `${srcFolder}/scss/style.scss`,
         // html - пути только тех файлов, что находятся в корне
         html: `${srcFolder}/*.html`,
@@ -23,6 +28,8 @@ export const path = {
         files: `${srcFolder}/files/**/*.*`,
     },
     watch: {
+        images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp,svg}`,
+        js: `${srcFolder}/js/**/*.js`,
         scss: `${srcFolder}/scss/**/*.scss`,
         // html - наблюдать за всеми файлами (и те, что в корне, и в подпапках)
         html: `${srcFolder}/**/*.html`,

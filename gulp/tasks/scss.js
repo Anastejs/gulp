@@ -13,9 +13,9 @@ const sass = gulpSass(dartSass);   // вызов из плагина gulpSass с
 
 export const scss = () => {
     return app.gulp.src(app.path.src.scss, { sourcemaps: true })
-        .pipe(app.plugins.plumber(          // обработка ошибок
+        .pipe(app.plugins.plumber(          // обработка ошибок во время компиляции gulp-ом
             app.plugins.notify.onError({    // уведомление с ошибкой в каком-то файле всплывает прямо из Windows
-                title: "HTML",
+                title: "SCSS",
                 message: "Error: <%= error.message %>"
             }))
         )
@@ -23,7 +23,7 @@ export const scss = () => {
         .pipe(sass({
             outputStyle: 'expanded'   // стиль: несжатый файл
         }))
-        .pipe(groupCssMediaQueries())      // группировка медиа запросов
+        .pipe(groupCssMediaQueries())   // группировка медиа запросов
         .pipe(webpcss({
             webpClass: ".webp",         // если браузер поддерживает .webp
             noWebpClass: ".no-webp"     // если браузер не поддерживает

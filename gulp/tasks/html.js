@@ -9,7 +9,7 @@ import versionNumber from "gulp-version-number";
 
 export const html = () => {
     return app.gulp.src(app.path.src.html)
-        .pipe(app.plugins.plumber(                // обработка ошибок
+        .pipe(app.plugins.plumber(                // обработка ошибок во время компиляции gulp-ом
             app.plugins.notify.onError({          // уведомление с ошибкой в каком-то файле всплывает прямо из Windows
                 title: "HTML",
                 message: "Error: <%= error.message %>"

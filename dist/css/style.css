@@ -1,0 +1,18 @@
+.no-webp body {
+  background: url("../img/img.jpg") 0 0 no-repeat; }
+
+body span {
+  color: brown;
+}
+
+@media (max-width: 768px) {
+  span {
+    font-size: 20px;
+  }
+
+  body {
+    background-color: #0e99ad;
+  }
+}
+
+.webp body { background: url(../img/img.webp) 0 0 no-repeat; }
