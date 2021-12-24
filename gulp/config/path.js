@@ -9,6 +9,7 @@ const srcFolder = `./src`;
 export const path = {
     // объект путей к папке с результатом
     build: {
+        fonts: `${buildFolder}/fonts/`,
         images: `${buildFolder}/img/`,
         js: `${buildFolder}/js/`,
         css: `${buildFolder}/css/`,
