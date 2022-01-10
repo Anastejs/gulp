@@ -1,3 +1,43 @@
+@font-face {
+  font-family: Gazetatitulc italic;
+  font-display: swap;
+  src: url("../fonts/Gazetatitulc italic.woff2") format("woff2"), url("../fonts/Gazetatitulc italic.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PTSerif;
+  font-display: swap;
+  src: url("../fonts/PTSerif-Bold.woff2") format("woff2"), url("../fonts/PTSerif-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PTSerif;
+  font-display: swap;
+  src: url("../fonts/PTSerif-BoldItalic.woff2") format("woff2"), url("../fonts/PTSerif-BoldItalic.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PTSerif;
+  font-display: swap;
+  src: url("../fonts/PTSerif-Italic.woff2") format("woff2"), url("../fonts/PTSerif-Italic.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PTSerif;
+  font-display: swap;
+  src: url("../fonts/PTSerif-Regular.woff2") format("woff2"), url("../fonts/PTSerif-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
 .no-webp body {
   background: url("../img/img.jpg") 0 0 no-repeat; }
 

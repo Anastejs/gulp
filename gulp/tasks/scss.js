@@ -7,12 +7,13 @@ import rename from "gulp-rename";   // плагин для переименов�
 import cleanCss from "gulp-clean-css";   // сжатие css файла
 import webpcss from "gulp-webpcss";     // вывод webp-изображений
 import autoprefixer from "gulp-autoprefixer";   // добавление вендорных префиксов (автоматическая кроссбраузерность)
-import groupCssMediaQueries from "gulp-group-css-media-queries";   // группировка медиа запросов
+import groupCssMediaQueries from "gulp-group-css-media-queries";
+import webp from "gulp-webp";   // группировка медиа запросов
 
 const sass = gulpSass(dartSass);   // вызов из плагина gulpSass с передачей компилятора sass
 
 export const scss = () => {
-    return app.gulp.src(app.path.src.scss, { sourcemaps: true })
+    return app.gulp.src(app.path.src.scss, { sourcemaps: app.isDev })       // карта исходников: если режим разработчика - true
         .pipe(app.plugins.plumber(          // обработка ошибок во время компиляции gulp-ом
             app.plugins.notify.onError({    // уведомление с ошибкой в каком-то файле всплывает прямо из Windows
                 title: "SCSS",
@@ -23,16 +24,32 @@ export const scss = () => {
         .pipe(sass({
             outputStyle: 'expanded'   // стиль: несжатый файл
         }))
-        .pipe(groupCssMediaQueries())   // группировка медиа запросов
-        .pipe(webpcss({
-            webpClass: ".webp",         // если браузер поддерживает .webp
-            noWebpClass: ".no-webp"     // если браузер не поддерживает
-        }))
-        .pipe(autoprefixer({     // добавим автопрефиксеры
-            grid: true,                 // свойство grid обрабатываются автопрефиксерами
-            overrideBrowserslist: ["last 3 versions"],  // количество версий у браузера (от самой современной)
-            cascade: true
-        }))
+
+        .pipe(
+            app.plugins.if(
+                app.isBuild,
+                groupCssMediaQueries()  // группировка медиа запросов
+            )
+        )
+        .pipe(
+            app.plugins.if(
+                app.isBuild,
+                autoprefixer({     // добавим автопрефиксеры
+                    grid: true,                 // свойство grid обрабатываются автопрефиксерами
+                    overrideBrowserslist: ["last 3 versions"],  // количество версий у браузера (от самой современной)
+                    cascade: true
+                })
+            )
+        )
+        .pipe(
+            app.plugins.if(
+                app.isBuild,
+                webpcss({
+                    webpClass: ".webp",         // если браузер поддерживает .webp
+                    noWebpClass: ".no-webp"     // если браузер не поддерживает
+                })
+            )
+        )
         .pipe(app.gulp.dest(app.path.build.css))    // выгружаем в папку результатов несжатый файл style.css (можно закомментить, если не нужно)
         .pipe(cleanCss())         // сжатие файла стиля
         .pipe(rename({

@@ -17,22 +17,31 @@ export const html = () => {
         )
         .pipe(fileInclude())
         .pipe(app.plugins.replace(/@img\//g, 'img/'))
-        .pipe(webpHtmlNosvg())
         .pipe(
-            versionNumber({
-                'value': '%DT%',     // добавляем текущую дату и время до секунд
-                'append': {
-                    'key': '_v',
-                    'cover': 0,
-                    'to': [
-                        'css',
-                        'js',
-                    ]
-                },
-                'output': {
-                    'file': 'gulp/version.json'    // создаётся файл, в котором будет хранится этот ключ
-                }
-            })
+            app.plugins.if(           // только если режим продакшна
+                app.isBuild,
+                webpHtmlNosvg()       // преобразование в webp формат
+            )
+        )
+        .pipe(
+            app.plugins.if(
+                app.isBuild,
+                // добавление версий
+                versionNumber({
+                    'value': '%DT%',     // добавляем текущую дату и время до секунд
+                    'append': {
+                        'key': '_v',
+                        'cover': 0,
+                        'to': [
+                            'css',
+                            'js',
+                        ]
+                    },
+                    'output': {
+                        'file': 'gulp/version.json'    // создаётся файл, в котором будет хранится этот ключ
+                    }
+                })
+            )
         )
         .pipe(app.gulp.dest(app.path.build.html))
         .pipe(app.plugins.browsersync.stream());      // обновление браузера
