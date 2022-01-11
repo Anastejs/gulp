@@ -46,7 +46,8 @@ const fonts = gulp.series(otfToTtf, ttfToWoff, fontsStyle);
 const mainTasks = gulp.series(fonts, gulp.parallel(copy, html, scss, js, images));
 
 // Построение сценариев выполнения задач (series - последовательное выполнение)
-const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));     // режим разработчика
+// const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));  // оригинальный сценарий, но мне не актуальна функция server так, как в WebStorm и так по умолчанию обновляет страницу в браузере
+const dev = gulp.series(reset, mainTasks, watcher);                            // режим разработчика
 const build = gulp.series(reset, mainTasks);                                   // режим продакшна
 const deployZIP = gulp.series(reset, mainTasks, zip);                          // новый сценарий (удаление папки с результатом, основные задачи, создание архива)
 
