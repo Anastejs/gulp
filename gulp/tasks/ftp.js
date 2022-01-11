@@ -1,15 +1,16 @@
-import del from "del";
-import zipPlugin from "gulp-zip";
+import { configFTP } from '../config/ftp.js';
+import vinylFTP from "vinyl-ftp";
+import util from "gulp-util";
 
-export const zip = () => {
-    del(`./${app.path.rootFolder}.zip`);    // удаляем zip-архив, который возможно уже существует
+export const ftp = () => {
+    configFTP.log = util.log;
+    const ftpConnect = vinylFTP.create(configFTP);    // создаём подключение
     return app.gulp.src(`${app.path.buildFolder}/**/*.*`, {})     // получаем все файлы любого уровня вложенности
         .pipe(app.plugins.plumber(          // обработка ошибок во время компиляции gulp-ом
             app.plugins.notify.onError({    // уведомление с ошибкой в каком-то файле всплывает прямо из Windows
-                title: "ZIP",
+                title: "FTP",
                 message: "Error: <%= error.message %>"
             }))
         )
-        .pipe(zipPlugin(`${app.path.rootFolder}.zip`))
-        .pipe(app.gulp.dest('./'));
+        .pipe(ftpConnect.dest(`/${app.path.ftp}/${app.path.rootFolder}`));
 }

@@ -24,6 +24,7 @@ import { js } from "./gulp/tasks/js.js";
 import { images } from "./gulp/tasks/images.js";
 import { otfToTtf, ttfToWoff, fontsStyle } from "./gulp/tasks/fonts.js";
 import { svgSprive } from "./gulp/tasks/svgSprive.js";
+import { zip } from "./gulp/tasks/zip.js";
 
 // Функция - наблюдатель за изменениями в файлах
 function watcher(){
@@ -47,10 +48,12 @@ const mainTasks = gulp.series(fonts, gulp.parallel(copy, html, scss, js, images)
 // Построение сценариев выполнения задач (series - последовательное выполнение)
 const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));     // режим разработчика
 const build = gulp.series(reset, mainTasks);                                   // режим продакшна
+const deployZIP = gulp.series(reset, mainTasks, zip);                          // новый сценарий (удаление папки с результатом, основные задачи, создание архива)
 
 // Экспорт сценариев
 export { dev }
 export { build }
+export { deployZIP }
 
 // Выполнение сценария по умолчанию
 gulp.task('default', dev);
